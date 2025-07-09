@@ -4,6 +4,8 @@
 #include <glad/glad.h>
 #include <GLFW/glfw3.h>
 #include "wrapper/checkError.h"
+#include "application/Application.h"
+
 void framebuffer_size_callback(GLFWwindow *window, int width, int height)
 {
     glViewport(0, 0, width, height);
@@ -15,6 +17,8 @@ void keyCallBack(GLFWwindow *window, int key, int scancode, int action, int mode
 
 int main()
 {
+    shyspace::app->text();
+
     glfwInit();
     glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 4);
     glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 6);
