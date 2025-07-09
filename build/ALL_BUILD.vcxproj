@@ -178,6 +178,10 @@ if %errorlevel% neq 0 goto :VCEnd</Command>
       <Project>{BABAAF0B-D360-3857-BD42-FE9AC5EC952F}</Project>
       <Name>OpenGLLearn</Name>
     </ProjectReference>
+    <ProjectReference Include="E:\OpenGLlearn\build\wrapper\wrapper.vcxproj">
+      <Project>{B0E80192-FE2F-3DAC-A955-545C02C25D95}</Project>
+      <Name>wrapper</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

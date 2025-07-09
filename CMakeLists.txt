@@ -11,6 +11,8 @@ link_directories(
     SYSTEM ${CMAKE_CURRENT_SOURCE_DIR}/third_party/lib
 )
 
+add_subdirectory(wrapper)
+
 add_executable(OpenGLLearn "main.cpp" "glad.c")
 
-target_link_libraries(OpenGLLearn glfw3.lib)
+target_link_libraries(OpenGLLearn glfw3.lib wrapper)
