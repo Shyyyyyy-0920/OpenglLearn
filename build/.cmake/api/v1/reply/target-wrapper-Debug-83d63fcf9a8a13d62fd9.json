@@ -12,7 +12,7 @@
 	"artifacts" : 
 	[
 		{
-			"path" : "wrapper/MinSizeRel/wrapper.lib"
+			"path" : "wrapper/Debug/wrapper.lib"
 		}
 	],
 	"backtrace" : 1,
@@ -21,6 +21,7 @@
 		"commands" : 
 		[
 			"add_library",
+			"add_definitions",
 			"include_directories"
 		],
 		"files" : 
@@ -45,7 +46,13 @@
 			{
 				"command" : 1,
 				"file" : 1,
-				"line" : 6,
+				"line" : 7,
+				"parent" : 2
+			},
+			{
+				"command" : 2,
+				"file" : 1,
+				"line" : 9,
 				"parent" : 2
 			}
 		]
@@ -56,13 +63,20 @@
 			"compileCommandFragments" : 
 			[
 				{
-					"fragment" : "/DWIN32 /D_WINDOWS /GR /EHsc /O1 /Ob1 /DNDEBUG -std:c++17 -MD"
+					"fragment" : "/DWIN32 /D_WINDOWS /GR /EHsc /Zi /Ob0 /Od /RTC1 -std:c++17 -MDd"
+				}
+			],
+			"defines" : 
+			[
+				{
+					"backtrace" : 3,
+					"define" : "DEBUG"
 				}
 			],
 			"includes" : 
 			[
 				{
-					"backtrace" : 3,
+					"backtrace" : 4,
 					"isSystem" : true,
 					"path" : "E:/OpenGLlearn/third_party/include"
 				}

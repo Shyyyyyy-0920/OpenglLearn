@@ -17,10 +17,13 @@
 	"dependencies" : 
 	[
 		{
+			"id" : "OpenGLLearn::@6890427a1f51a3e7e1df"
+		},
+		{
 			"id" : "wrapper::@cfb3dd9ac32c2b8e43a8"
 		},
 		{
-			"id" : "OpenGLLearn::@6890427a1f51a3e7e1df"
+			"id" : "app::@8badf0d542dc2e21c899"
 		},
 		{
 			"id" : "ZERO_CHECK::@6890427a1f51a3e7e1df"

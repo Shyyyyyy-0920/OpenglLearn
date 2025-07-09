@@ -4,7 +4,6 @@
 #include <glad/glad.h>
 #include <GLFW/glfw3.h>
 #include "wrapper/checkError.h"
-
 void framebuffer_size_callback(GLFWwindow *window, int width, int height)
 {
     glViewport(0, 0, width, height);
@@ -31,15 +30,15 @@ int main()
         return -1;
     }
 
-    glViewport(0, 0, 800, 600);
-    glClearColor(0.2f, 0.3f, 0.3f, 1.0f);
+    GL_CALL(glViewport(0, 0, 800, 600));
+    GL_CALL(glClearColor(0.2f, 0.3f, 0.3f, 1.0f));
 
     // glfwSetKeyCallback(window, keyCallBack);
     while (!glfwWindowShouldClose(window))
     {
         glfwPollEvents();
-        glClear(-1);
-        checkError();
+        GL_CALL(glClear(GL_COLOR_BUFFER_BIT));
+
         glfwSwapBuffers(window);
     }
 
