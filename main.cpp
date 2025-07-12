@@ -1,11 +1,14 @@
 #include <iostream>
 #include <string>
 #include <assert.h>
-#include <glad/glad.h>
-#include <GLFW/glfw3.h>
+#include "glFramework/Shader.h"
+#include "glFramework/core.h"
+
 #include "wrapper/checkError.h"
 #include "application/Application.h"
 
+GLuint vao;
+Shader *shader = nullptr;
 void framebuffer_size_callback(GLFWwindow *window, int width, int height)
 {
     glViewport(0, 0, width, height);
@@ -38,16 +41,52 @@ void prepareVBO()
     GL_CALL(glDeleteBuffers(3, vboAry));
 }
 
-void prepare()
+void prepareVAO()
 {
-    float vertices[] = {
+    float positions[] = {
         -0.5f, -0.5f, 0.0f,
         0.5f, -0.5f, 0.0f,
         0.0f, 0.5f, 0.0f};
-    GLuint vbo = 0;
-    glGenBuffers(1, &vbo);
-    glBindBuffer(GL_ARRAY_BUFFER, vbo);
-    glBufferData(GL_ARRAY_BUFFER, sizeof(vertices), vertices, GL_STATIC_DRAW);
+
+    float colors[] =
+        {
+            1.0f, 0.0f, 0.0f,
+            0.0f, 1.0f, 0.0f,
+            0.0f, 0.0f, 1.0f};
+
+    unsigned int indices[] =
+        {
+            0, 1, 2};
+
+    GLuint posvbo = 0;
+    GL_CALL(glGenBuffers(1, &posvbo));
+    GL_CALL(glBindBuffer(GL_ARRAY_BUFFER, posvbo));
+    GL_CALL(glBufferData(GL_ARRAY_BUFFER, sizeof(positions), positions, GL_STATIC_DRAW));
+
+    GLuint colorvbo = 0;
+    GL_CALL(glGenBuffers(1, &colorvbo));
+    GL_CALL(glBindBuffer(GL_ARRAY_BUFFER, colorvbo));
+    GL_CALL(glBufferData(GL_ARRAY_BUFFER, sizeof(colors), colors, GL_STATIC_DRAW));
+
+    GLuint ebo = 0;
+    GL_CALL(glGenBuffers(1, &ebo));
+    GL_CALL(glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, ebo));
+    GL_CALL(glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(indices), indices, GL_STATIC_DRAW));
+
+    GL_CALL(glGenVertexArrays(1, &vao));
+    GL_CALL(glBindVertexArray(vao));
+
+    GL_CALL(glBindBuffer(GL_ARRAY_BUFFER, posvbo));
+    GL_CALL(glEnableVertexAttribArray(0));
+    GL_CALL(glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, sizeof(float) * 3, nullptr));
+
+    GL_CALL(glBindBuffer(GL_ARRAY_BUFFER, colorvbo));
+    GL_CALL(glEnableVertexAttribArray(1));
+    GL_CALL(glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, sizeof(float) * 3, nullptr));
+
+    GL_CALL(glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, ebo));
+
+    GL_CALL(glBindVertexArray(0));
 }
 
 void prepareSingleBuffer()
@@ -55,7 +94,10 @@ void prepareSingleBuffer()
     float positions[] = {
         -0.5f, -0.5f, 0.0f,
         0.5f, -0.5f, 0.0f,
-        0.0f, 0.5f, 0.0f};
+        0.0f, 0.5f, 0.0f,
+        0.5f, 0.5f, 0.0f,
+        0.8f, 0.8f, 0.0f,
+        0.8f, 0.0f, 0.0f};
     float colors[] = {
         1.0f, 0.0f, 0.0f,
         0.0f, 1.0f, 0.0f,
@@ -71,7 +113,6 @@ void prepareSingleBuffer()
     GL_CALL(glBindBuffer(GL_ARRAY_BUFFER, colorvbo));
     GL_CALL(glBufferData(GL_ARRAY_BUFFER, sizeof(colors), colors, GL_STATIC_DRAW));
 
-    GLuint vao = 0;
     glGenVertexArrays(1, &vao);
     glBindVertexArray(vao);
 
@@ -86,6 +127,22 @@ void prepareSingleBuffer()
     glBindVertexArray(0);
 }
 
+void prepareShader()
+{
+    shader = new Shader("assets/shaders/vertex.glsl", "assets/shaders/fragment.glsl");
+}
+
+void render()
+{
+    GL_CALL(glClear(GL_COLOR_BUFFER_BIT));
+    shader->begin();
+    GL_CALL(glBindVertexArray(vao));
+
+    glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
+    glBindVertexArray(0);
+    shader->end();
+}
+
 int main()
 {
     if (!shyspace::app->init(800, 600))
@@ -98,12 +155,14 @@ int main()
     GL_CALL(glViewport(0, 0, 800, 600));
     GL_CALL(glClearColor(0.2f, 0.3f, 0.3f, 1.0f));
 
-    prepareSingleBuffer();
+    // prepareSingleBuffer();
+    prepareShader();
+    prepareVAO();
 
     // glfwSetKeyCallback(window, keyCallBack);
     while (shyspace::app->update())
     {
-        GL_CALL(glClear(GL_COLOR_BUFFER_BIT));
+        render();
     }
     shyspace::app->destroy();
     return 0;

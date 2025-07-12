@@ -1,3 +1,4 @@
+#pragma once
 #include <iostream>
 #define app Application::getInstance()
 class GLFWwindow;

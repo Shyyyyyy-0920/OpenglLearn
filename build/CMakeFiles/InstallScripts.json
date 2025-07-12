@@ -3,7 +3,8 @@
 	[
 		"E:/OpenGLlearn/build/cmake_install.cmake",
 		"E:/OpenGLlearn/build/wrapper/cmake_install.cmake",
-		"E:/OpenGLlearn/build/application/cmake_install.cmake"
+		"E:/OpenGLlearn/build/application/cmake_install.cmake",
+		"E:/OpenGLlearn/build/glFramework/cmake_install.cmake"
 	],
 	"Parallel" : false
 }

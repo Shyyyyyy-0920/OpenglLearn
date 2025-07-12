@@ -1,12 +1,11 @@
-#include <string>
-#include <assert.h>
-#include <glad/glad.h>
-#include <iostream>
+#pragma once
+
 #ifdef DEBUG
 #define GL_CALL(func) \
     func;             \
     checkError();
 #else
-#define GL_CALL(func)
+#define GL_CALL(func) func;
 #endif
+
 void checkError();

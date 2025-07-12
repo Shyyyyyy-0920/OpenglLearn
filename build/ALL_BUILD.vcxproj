@@ -182,6 +182,10 @@ if %errorlevel% neq 0 goto :VCEnd</Command>
       <Project>{C1B964A5-45CD-3211-B349-1D08356ACEC0}</Project>
       <Name>app</Name>
     </ProjectReference>
+    <ProjectReference Include="E:\OpenGLlearn\build\glFramework\fw.vcxproj">
+      <Project>{2AB43615-8803-3BD1-8F64-BFF7A8B4AF1A}</Project>
+      <Name>fw</Name>
+    </ProjectReference>
     <ProjectReference Include="E:\OpenGLlearn\build\wrapper\wrapper.vcxproj">
       <Project>{B0E80192-FE2F-3DAC-A955-545C02C25D95}</Project>
       <Name>wrapper</Name>
